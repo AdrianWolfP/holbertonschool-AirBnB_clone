@@ -2,8 +2,9 @@
 """Module for FileStorage class"""
 
 import json
-import os
 import models
+from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -12,6 +13,7 @@ class FileStorage:
     private class attributes:
     __file_path: (string) - path to JSON file
     __objects: (dictionary) - empty nut will store all objects by <class name>.id"""
+    
     __file_path = "./file.json"
     __objects = {}
 
