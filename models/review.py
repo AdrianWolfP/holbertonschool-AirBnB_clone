@@ -10,4 +10,8 @@ class Review(BaseModel):
     """
     place_id = ""
     user_id = ""
+<<<<<<< HEAD
     test = ""
+=======
+    test = ""
+>>>>>>> f316a631296f42a2d78156d9c26119fa1cae2e76

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/python3
 """
 Amenity class module
@@ -23,3 +24,6 @@ class Amenity(BaseModel):
             super().__init__(*args, **kwargs)
         else:
             super().__init__(*args, **kwargs)
+=======
+#!
+>>>>>>> f316a631296f42a2d78156d9c26119fa1cae2e76

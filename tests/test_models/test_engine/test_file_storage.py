@@ -16,3 +16,7 @@ class TestFileStorage(unittest.TestCase):
         each case is run """
         # Create a new FileStorage object before each test
         self.test_object = BaseModel()
+<<<<<<< HEAD
+=======
+        
+>>>>>>> f316a631296f42a2d78156d9c26119fa1cae2e76
