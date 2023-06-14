@@ -3,7 +3,6 @@
 
 import json
 import models
-<<<<<<< HEAD
 import os
 from typing import Dict
 
@@ -28,29 +27,6 @@ class FileStorage:
         Returns the objects dictionary
         """
         return self.objects
-=======
-from models.base_model import BaseModel
-from models.user import User
-
-
-class FileStorage:
-    """class FileStorage serializes instances to
-    a JSON file and deserializes JSON file to instances:
-    private class attributes:
-    __file_path: (string) - path to JSON file
-    __objects: (dictionary) - empty nut will store all objects by <class name>.id"""
-    
-    __file_path = "./file.json"
-    __objects = {}
-
-    @classmethod
-    def clear(cls):
-        FileStorage.__objects = {}
-
-    def all(self):
-        """ returns dictionary __objects"""
-        return self.__objects
->>>>>>> f316a631296f42a2d78156d9c26119fa1cae2e76
     
     def new(self, obj: object):
         """
