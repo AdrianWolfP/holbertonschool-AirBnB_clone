@@ -2,49 +2,66 @@
 """Module for FileStorage class"""
 
 import json
-import os
 import models
+import os
+from typing import Dict
 
 
 class FileStorage:
-    """class FileStorage serializes instances to
-    a JSON file and deserializes JSON file to instances:
-    private class attributes:
-    __file_path: (string) - path to JSON file
-    __objects: (dictionary) - empty nut will store all objects by <class name>.id"""
-    __file_path = "./file.json"
-    __objects = {}
+    """
+    Class FileStorage serializes instances to a JSON file and deserializes JSON file to instances
+    """
 
-    @classmethod
-    def clear(cls):
-        FileStorage.__objects = {}
+    def __init__(self):
+        self.file_path = "./file.json"
+        self.objects = {}
 
-    def all(self):
-        """ returns dictionary __objects"""
-        return self.__objects
+    def clear(self):
+        """
+        Clears the objects dictionary
+        """
+        self.objects = {}
+
+    def all(self) -> Dict[str, object]:
+        """
+        Returns the objects dictionary
+        """
+        return self.objects
     
-    def new(self, obj):
-        """ set in __objects the obj with key <obj class name>.id """
-        key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[key] = obj
+    def new(self, obj: object):
+        """
+        Adds an object to the objects dictionary
+        """
+        key = f"{obj.__class__.__name__}.{obj.id}"
+        self.objects[key] = obj
 
     def save(self):
-        """ serializes __objects to the JSON file (path: __file_path)"""
-        new_dict = {}
-        for key, value in self.__objects.items():
-            new_dict[key] = value.to_dict()
-        with open(self.__file_path, "w") as f:
+        """
+        Serializes the objects to the JSON file
+        """
+        new_dict = {key: value.to_dict() for key, value in self.objects.items()}
+        with open(self.file_path, "w") as f:
             json.dump(new_dict, f)
-    
+
     def reload(self):
-        try:
-            with open(self.__file_path, 'r') as f:
-                data = json.load(f)
-                for key in data:
-                    class_name = data[key]['__class__']
-                    obj_dict = data[key]
-                    cls = detattr(model, class_name)
-                    instance = cls(**obj_dict)
-                    self.__objects[key] = instance
-        except FileNotFoundError:
-            pass
+        """ deserializes the JSON file to __objects """
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+
+        reload_dict = {"BaseModel": BaseModel, "User": User, "State": State,
+                       "City": City, "Amenity": Amenity, "Place": Place,
+                       "Review": Review}
+
+        if os.path.isfile(self.file_path):
+            with open(self.file_path, "r", encoding="UTF-8") as f:
+                reloaded = json.load(f)
+                for obj, value in reloaded.items():
+                    item_class = reloaded[obj].get("__class__")
+                    if item_class in reload_dict:
+                        cls_func = reload_dict.get(item_class)
+                        self.objects[obj] = cls_func(**reloaded[obj])
