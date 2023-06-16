@@ -9,7 +9,9 @@ from typing import Dict
 
 class FileStorage:
     """
-    Class FileStorage serializes instances to a JSON file and deserializes JSON file to instances
+    Class FileStorage 
+    serializes instances to a JSON file 
+    and deserializes JSON file to instances
     """
 
     def __init__(self):
@@ -37,7 +39,8 @@ class FileStorage:
 
     def save(self):
         """
-        Serializes the objects to the JSON file
+        Serializes the objects
+        to the JSON file
         """
         new_dict = {key: value.to_dict() for key, value in self.objects.items()}
         with open(self.file_path, "w") as f:

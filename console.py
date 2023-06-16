@@ -158,6 +158,5 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
         print("** no instance found **")
-
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

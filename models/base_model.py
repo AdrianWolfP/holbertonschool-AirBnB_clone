@@ -8,9 +8,9 @@ import models
 
 
 class BaseModel:
-    """class BaseModel that defines all common 
+    """class BaseModel that defines all common
     attributes for other classes"""
-    
+
     def __init__(self, *args, **kwargs):
         """Public attributes initializing Base Models"""
         if kwargs:
@@ -30,7 +30,7 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """Return string with class name, 
+        """Return string with class name,
         id, dictionary class"""
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
                                      self.__dict__)
@@ -42,7 +42,7 @@ class BaseModel:
         models.storage.save()
     
     def to_dict(self):
-        """Returns a dictionary containing 
+        """Returns a dictionary containing
         keys/values of __dict__ of the instance"""
         new_dict = self.__dict__.copy()  # copy dict
         if "created_at" in new_dict:
